@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
 import { alert, prompt } from "tns-core-modules/ui/dialogs";
 import { Page } from "tns-core-modules/ui/page";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -13,13 +13,16 @@ import { UserService } from "../shared/user.service";
     templateUrl: "./login.component.html",
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     private error = '';
     isLoggingIn = true;
     user: User;
     processing = false;
     @ViewChild("password") password: ElementRef;
     @ViewChild("confirmPassword") confirmPassword: ElementRef;
+    @ViewChild("nome") nome: ElementRef;
+    @ViewChild("email") email: ElementRef;
+    @ViewChild("cpf") cpf: ElementRef;
 
     constructor(
         private page: Page, 
@@ -28,8 +31,16 @@ export class LoginComponent {
     ){
         this.page.actionBarHidden = true;
         this.user = new User();
-        this.user.email = "susu";
-        this.user.password = "123456";
+        this.user.login = "susu";
+        this.user.senha = "123456";
+    }
+
+    ngOnInit(){}
+
+    get invalidLogin(): boolean{
+        if (!this.user.login || !this.user.senha) {
+            return ;
+        }
     }
 
     toggleForm() {
@@ -37,8 +48,8 @@ export class LoginComponent {
     }
 
     submit() {
-        if (!this.user.email || !this.user.password) {
-            this.alert("Please provide both an email address and password.");
+        if (!this.user.login || !this.user.senha) {
+            this.alert("Insira Login e Senha.");
             return;
         }
 
@@ -51,7 +62,7 @@ export class LoginComponent {
     }
 
     login() {
-        this.userService.login(this.user.email, this.user.password)
+        this.userService.login(this.user.login, this.user.senha)
         .pipe(first())
         .subscribe(
             response => {
@@ -59,7 +70,7 @@ export class LoginComponent {
                     this.routerExtensions.navigate(["/home"], { clearHistory: true });
                 }
                 else{
-                    alert(response.erros[0]);
+                    this.alert(response.erros[0]);
                     this.processing = false;
                 }
             },
@@ -70,8 +81,8 @@ export class LoginComponent {
     }
 
     register() {
-        if (this.user.password != this.user.confirmPassword) {
-            this.alert("Your passwords do not match.");
+        if (this.user.senha != this.user.confirmPassword) {
+            this.alert("Suas senhas não conferem");
             return;
         }
         this.userService.register(this.user)
@@ -114,10 +125,25 @@ export class LoginComponent {
             this.confirmPassword.nativeElement.focus();
         }
     }
+    focusNome() {
+        if (!this.isLoggingIn) {
+            this.nome.nativeElement.focus();
+        }
+    }
+    focusEmail() {
+        if (!this.isLoggingIn) {
+            this.email.nativeElement.focus();
+        }
+    }
+    focusCpf() {
+        if (!this.isLoggingIn) {
+            this.email.nativeElement.focus();
+        }
+    }
 
     alert(message: string) {
         return alert({
-            title: "APP NAME",
+            title: "Sandubas Brasil",
             okButtonText: "OK",
             message: message
         });

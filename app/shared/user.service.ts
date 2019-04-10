@@ -16,7 +16,7 @@ export class UserService {
     ){}
 
     register(user: User) {
-        return Kinvey.User.signup({ username: user.email, password: user.password })
+        return Kinvey.User.signup({ username: user.email, password: user.senha })
             .catch(this.handleErrors);
     }
 
