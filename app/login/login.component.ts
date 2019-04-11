@@ -81,20 +81,11 @@ export class LoginComponent implements OnInit {
     }
 
     register() {
-        if (this.user.senha != this.user.confirmPassword) {
-            this.alert("Suas senhas não conferem");
-            return;
+        if(this.validFormNovoUser()){
+            // this.userService.register(this.user)
+            this.alert("Em construção");
         }
-        this.userService.register(this.user)
-            .then(() => {
-                this.processing = false;
-                this.alert("Your account was successfully created.");
-                this.isLoggingIn = true;
-            })
-            .catch(() => {
-                this.processing = false;
-                this.alert("Unfortunately we were unable to create your account.");
-            });
+        this.processing = false;
     }
 
     forgotPassword() {
@@ -147,6 +138,42 @@ export class LoginComponent implements OnInit {
             okButtonText: "OK",
             message: message
         });
+    }
+
+    private validFormNovoUser(): boolean{
+        if(this.stringNotNullOrEmpty(this.user.login)){
+            this.alert('Login deve ser preenchido');
+            return false;
+        }
+        if(this.stringNotNullOrEmpty(this.user.senha)){
+            this.alert('Senha deve ser preenchido');
+            return false;
+        }
+        if(this.stringNotNullOrEmpty(this.user.confirmPassword)){
+            this.alert('Confirmar senha deve ser preenchido');
+            return false;
+        }
+        if (this.user.senha != this.user.confirmPassword) {
+            this.alert("Suas senhas não conferem");
+            return false;
+        }
+        if(this.stringNotNullOrEmpty(this.user.nome)){
+            this.alert('Nome deve ser preenchido');
+            return false;
+        }
+        if(this.stringNotNullOrEmpty(this.user.email)){
+            this.alert('E-mail deve ser preenchido');
+            return false;
+        }
+        if(this.stringNotNullOrEmpty(this.user.cpf)){
+            this.alert('CPF deve ser preenchido');
+            return false;
+        }
+        return true;
+    }
+
+    private stringNotNullOrEmpty(texto: string): boolean{
+        return texto != null && texto.trim() != '';
     }
 }
 

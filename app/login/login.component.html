@@ -6,6 +6,7 @@
         <PreviousNextView [height]="isLoggingIn ? 150 : 300">
             <ScrollView orientation="vertical">
             <GridLayout rows="auto, auto, auto, auto, auto, auto">
+                <!-- Login -->
                 <StackLayout row="0" class="input-field">
                     <TextField class="input" hint="Login" [isEnabled]="!processing"
                         autocorrect="false"
@@ -13,7 +14,7 @@
                         returnKeyType="next" (returnPress)="focusPassword()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-
+                <!-- Senha -->
                 <StackLayout row="1" class="input-field">
                     <TextField #password class="input" [isEnabled]="!processing"
                         hint="Senha" secure="true" [(ngModel)]="user.senha"
@@ -21,7 +22,7 @@
                         (returnPress)="focusConfirmPassword()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-
+                <!-- Confirmar Senha -->
                 <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #confirmPassword class="input" [isEnabled]="!processing"
                         hint="Confirme a Senha" secure="true" [(ngModel)]="user.confirmPassword"
@@ -29,7 +30,7 @@
                         (returnPress)="focusNome()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-
+                <!-- Nome -->
                 <StackLayout row="3" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #nome class="input" [isEnabled]="!processing"
                         hint="Nome" secure="false" [(ngModel)]="user.nome"
@@ -37,7 +38,7 @@
                         (returnPress)="focusEmail()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-
+                <!-- E-mail -->
                 <StackLayout row="4" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #email class="input" [isEnabled]="!processing"
                         keyboardType="email" 
@@ -46,7 +47,7 @@
                         (returnPress)="focusCpf()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-
+                <!-- CPF -->
                 <StackLayout row="5" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #cpf class="input" [isEnabled]="!processing"
                         hint="CPF" secure="false" [(ngModel)]="user.cpf"
