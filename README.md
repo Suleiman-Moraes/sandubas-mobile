@@ -1,4 +1,4 @@
 # sandubas-mobile
 Aplicativo em nativescript do projeto sandubas
 
-<img src="images/login.PNG" alt="" />
+<img src="images/login.png" alt="" />
