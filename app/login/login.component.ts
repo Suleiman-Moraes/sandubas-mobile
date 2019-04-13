@@ -2,10 +2,11 @@ import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
 import { alert, prompt } from "tns-core-modules/ui/dialogs";
 import { Page } from "tns-core-modules/ui/page";
 import { RouterExtensions } from "nativescript-angular/router";
-import { first } from 'rxjs/operators';
+import { first, timestamp } from 'rxjs/operators';
 
 import { User } from "../shared/user.model";
 import { UserService } from "../shared/user.service";
+import { ResponseApi } from "~/shared/models/Response-api.model";
 
 @Component({
     selector: "app-login",
@@ -82,8 +83,23 @@ export class LoginComponent implements OnInit {
 
     register() {
         if(this.validFormNovoUser()){
-            // this.userService.register(this.user)
-            this.alert("Em construção");
+            this.userService.register(this.user).subscribe((responseApi: ResponseApi) => {
+                if(responseApi != null){
+                    if(responseApi.data != null){
+                        this.alert('usuário cadastrado com sucesso!');
+                        this.toggleForm();
+                    }
+                    else{
+                        responseApi.erros.forEach(x => {
+                            this.alert(x);
+                        });
+                    }
+                }
+                else{
+                    this.alert('Ocorreu um erro inesperado, tente novamente mais tarde.');
+                    this.toggleForm();
+                }
+            });
         }
         this.processing = false;
     }
@@ -141,15 +157,15 @@ export class LoginComponent implements OnInit {
     }
 
     private validFormNovoUser(): boolean{
-        if(this.stringNotNullOrEmpty(this.user.login)){
+        if(this.stringNullOrEmpty(this.user.login)){
             this.alert('Login deve ser preenchido');
             return false;
         }
-        if(this.stringNotNullOrEmpty(this.user.senha)){
+        if(this.stringNullOrEmpty(this.user.senha)){
             this.alert('Senha deve ser preenchido');
             return false;
         }
-        if(this.stringNotNullOrEmpty(this.user.confirmPassword)){
+        if(this.stringNullOrEmpty(this.user.confirmPassword)){
             this.alert('Confirmar senha deve ser preenchido');
             return false;
         }
@@ -157,15 +173,15 @@ export class LoginComponent implements OnInit {
             this.alert("Suas senhas não conferem");
             return false;
         }
-        if(this.stringNotNullOrEmpty(this.user.nome)){
+        if(this.stringNullOrEmpty(this.user.nome)){
             this.alert('Nome deve ser preenchido');
             return false;
         }
-        if(this.stringNotNullOrEmpty(this.user.email)){
+        if(this.stringNullOrEmpty(this.user.email)){
             this.alert('E-mail deve ser preenchido');
             return false;
         }
-        if(this.stringNotNullOrEmpty(this.user.cpf)){
+        if(this.stringNullOrEmpty(this.user.cpf)){
             this.alert('CPF deve ser preenchido');
             return false;
         }
@@ -174,6 +190,10 @@ export class LoginComponent implements OnInit {
 
     private stringNotNullOrEmpty(texto: string): boolean{
         return texto != null && texto.trim() != '';
+    }
+
+    private stringNullOrEmpty(texto: string): boolean{
+        return !this.stringNotNullOrEmpty(texto);
     }
 }
 

@@ -1,5 +1,5 @@
 import { SANDU_USER_LOGIN } from './sandubas.api';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 // The following is a sample implementation of a backend service using Progress Kinvey (https://www.progress.com/kinvey).
 // Feel free to swap in your own service / APIs / etc here for your own apps.
 
@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
 import { Kinvey } from "kinvey-nativescript-sdk";
 import { User } from "./user.model";
 import { HttpClient } from "@angular/common/http";
+import { ResponseApi } from './models/Response-api.model';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,10 @@ export class UserService {
     ){}
 
     register(user: User) {
-        return Kinvey.User.signup({ username: user.email, password: user.senha })
-            .catch(this.handleErrors);
+        return this.http.post(SANDU_USER_LOGIN, user).pipe(
+            map(this.jsonDataToResource.bind(this)),
+            catchError(this.handleErrors)
+        )
     }
 
     login(login: string, senha: string) {
@@ -48,5 +51,9 @@ export class UserService {
     handleErrors(error: Kinvey.BaseError) {
         console.error(error.message);
         return Promise.reject(error.message);
+    }
+
+    protected jsonDataToResource(jsonData: any): ResponseApi {
+        return Object.assign(new ResponseApi(), jsonData);
     }
 }
