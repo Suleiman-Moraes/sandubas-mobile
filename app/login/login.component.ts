@@ -7,6 +7,7 @@ import { first, timestamp } from 'rxjs/operators';
 import { User } from "../shared/user.model";
 import { UserService } from "../shared/user.service";
 import { ResponseApi } from "~/shared/models/Response-api.model";
+import { SharedService } from "~/shared/shared.service";
 
 @Component({
     selector: "app-login",
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     isLoggingIn = true;
     user: User;
     processing = false;
+    sharedService: SharedService;
     @ViewChild("password") password: ElementRef;
     @ViewChild("confirmPassword") confirmPassword: ElementRef;
     @ViewChild("nome") nome: ElementRef;
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.user = new User();
         this.user.login = "susu";
         this.user.senha = "123456";
+        this.sharedService = SharedService.getInstance();
     }
 
     ngOnInit(){}
@@ -68,7 +71,8 @@ export class LoginComponent implements OnInit {
         .subscribe(
             response => {
                 if(response.data){
-                    this.routerExtensions.navigate(["/home"], { clearHistory: true });
+                    this.sharedService.user = response.data;
+                    this.routerExtensions.navigate(["/principal"], { clearHistory: true });
                 }
                 else{
                     this.alert(response.erros[0]);

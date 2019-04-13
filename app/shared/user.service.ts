@@ -8,13 +8,17 @@ import { Kinvey } from "kinvey-nativescript-sdk";
 import { User } from "./user.model";
 import { HttpClient } from "@angular/common/http";
 import { ResponseApi } from './models/Response-api.model';
+import { SharedService } from './shared.service';
 
 @Injectable()
 export class UserService {
 
+    sharedService: SharedService;
     constructor(
         private http: HttpClient
-    ){}
+    ){
+        this.sharedService = SharedService.getInstance();
+    }
 
     register(user: User) {
         return this.http.post(SANDU_USER_LOGIN, user).pipe(
@@ -31,6 +35,7 @@ export class UserService {
             return user;
           }
           else{
+            this.sharedService.user = null;
             return null;
           }
         }));
@@ -39,8 +44,7 @@ export class UserService {
     }
 
     logout() {
-        return Kinvey.User.logout()
-            .catch(this.handleErrors);
+        this.sharedService.user = null;
     }
 
     resetPassword(email) {
