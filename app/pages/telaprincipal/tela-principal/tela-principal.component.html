@@ -6,14 +6,12 @@
 <GridLayout rows="auto,auto,*,auto" columns="auto">
 
     <GridLayout row="0" #navStatusBar class="navStatusBar" backgroundColor="#bd2122"
-        verticalAlignment="top" height="40" width="100%" rows="auto" columns="*,auto,auto,auto">
-        <Image col="0" row="0" (tap)="onBellTap()" horizontalAlignment="left"
-            class="status-img" src="~/images/burger-cart.png"></Image>
-        <Label col="1" row="0" text="Home" class="status-title" horizontalAlignment="right"></Label>
+        verticalAlignment="top" height="40" width="100%" rows="auto" columns="auto,*,auto">
+        <Image col="0" row="0" (tap)="onBellTap()"
+            class="status-img" src="~/images/icons8-scooter-de-entrega-128.png"></Image>
+        <Label col="1" row="0" [text]="user.nome" class="status-title" horizontalAlignment="right"></Label>
         <Image col="2" row="0" (tap)="onSearchTap()" horizontalAlignment="right"
-            class="status-img" src="~/images/search.png"></Image>
-        <Image col="3" row="0" (tap)="logout()" horizontalAlignment="right"
-            class="status-img" src="~/images/sign-out.png"></Image>
+            class="status-img" src="~/images/icons8-nome-filled-100.png"></Image>
     </GridLayout>
 
     <GridLayout row="1" #navTab class="navTab" verticalAlignment="top" height="50"
@@ -157,8 +155,8 @@
             rows="*,auto" cols="auto" col="3" row="0" width="25%">
 
             <Image [class]="selectedTab==3?'navIcon active':'navIcon'" row="0"
-                [src]="selectedTab==3?'~/images/navusm.png':'~/images/navus.png'"></Image>
-            <Label row="1" *ngIf="selectedTab == 3" text="About" class="navText"></Label>
+                [src]="selectedTab==3?'~/images/sign-out.png':'~/images/sign-out.png'"></Image>
+            <Label row="1" *ngIf="selectedTab == 3" text="Sair" class="navText"></Label>
         </GridLayout>
     </GridLayout>
 

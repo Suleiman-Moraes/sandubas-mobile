@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     ){
         this.page.actionBarHidden = true;
         this.user = new User();
-        this.user.login = "susu";
+        this.user.login = "xx";
         this.user.senha = "123456";
         this.sharedService = SharedService.getInstance();
     }
