@@ -7,8 +7,7 @@ import { BackendService } from "./shared/backend.service";
 const routes: Routes = [
     { path: "", redirectTo: BackendService.isUserLoggedIn() ? "/principal" : "/login", pathMatch: "full" },
     { path: "login", component: LoginComponent },
-    { path: "home", loadChildren: "./home/home.module#HomeModule" },
-    { path: "principal", loadChildren: "./pages/telaprincipal/telaprincipal.module#TelaprincipalModule" }
+    { path: "principal", loadChildren: "./app/pages/telaprincipal/telaprincipal.module#TelaprincipalModule" }
 ];
 
 @NgModule({

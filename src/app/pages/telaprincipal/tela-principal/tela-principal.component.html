@@ -8,10 +8,10 @@
     <GridLayout row="0" #navStatusBar class="navStatusBar" backgroundColor="#bd2122"
         verticalAlignment="top" height="40" width="100%" rows="auto" columns="auto,*,auto">
         <Image col="0" row="0" (tap)="onBellTap()"
-            class="status-img" src="~/images/icons8-scooter-de-entrega-128.png"></Image>
+            class="status-img" src="~/app/images/icons8-scooter-de-entrega-128.png"></Image>
         <Label col="1" row="0" [text]="user.nome" class="status-title" horizontalAlignment="right"></Label>
         <Image col="2" row="0" (tap)="onSearchTap()" horizontalAlignment="right"
-            class="status-img" src="~/images/icons8-nome-filled-100.png"></Image>
+            class="status-img" src="~/app/images/icons8-nome-filled-100.png"></Image>
     </GridLayout>
 
     <GridLayout row="1" #navTab class="navTab" verticalAlignment="top" height="50"
@@ -19,21 +19,21 @@
 
         <GridLayout [class]="selectedTabview==0?'tabview.active':'tabview'"
             (tap)="onPopularTap()" rows="*,auto" columns="auto" col="1" row="0">
-            <Image *ngIf="selectedTabview==0" row="0" class="navIcon" [src]="selectedTabview==0?'~/images/popular.png':''"></Image>
+            <Image *ngIf="selectedTabview==0" row="0" class="navIcon" [src]="selectedTabview==0?'~/app/images/popular.png':''"></Image>
             <Label [class]="selectedTabview==0?'tabviewText.active':'tabviewText'"
                 row="1" text="POPULAR"></Label>
         </GridLayout>
         <GridLayout [class]="selectedTabview==1?'tabview.active':'tabview'"
             (tap)="onCategoryTap()" rows="*,auto" columns="auto" col="2" row="0"
             width="34%">
-            <Image *ngIf="selectedTabview == 1" row="0" class="navIcon" [src]="selectedTabview==1?'~/images/category.png':''"></Image>
+            <Image *ngIf="selectedTabview == 1" row="0" class="navIcon" [src]="selectedTabview==1?'~/app/images/category.png':''"></Image>
             <Label [class]="selectedTabview==1?'tabviewText.active':'tabviewText'"
                 row="1" text="CATEGORY"></Label>
         </GridLayout>
         <GridLayout [class]="selectedTabview==2?'tabview.active':'tabview'"
             (tap)="onPromosTap()" rows="*,auto" columns="auto" col="3" row="0"
             width="33%">
-            <Image *ngIf="selectedTabview == 2" row="0" class="navIcon" [src]="selectedTabview==2?'~/images/category.png':''"></Image>
+            <Image *ngIf="selectedTabview == 2" row="0" class="navIcon" [src]="selectedTabview==2?'~/app/images/category.png':''"></Image>
             <Label [class]="selectedTabview==2?'tabviewText.active':'tabviewText'"
                 row="1" text="PROMOS"></Label>
         </GridLayout>
@@ -133,21 +133,21 @@
         <GridLayout [class]="selectedTab==0?'nav active':'nav'" (tap)="onHomeTap()"
             rows="*,auto" cols="auto" col="0" row="0" width="25%">
             <Image [class]="selectedTab==0?'navIcon active':'navIcon'" row="0"
-                [src]="selectedTab==0?'~/images/navhomem.png':'~/images/navhome.png'"></Image>
+                [src]="selectedTab==0?'~/app/images/navhomem.png':'~/app/images/navhome.png'"></Image>
             <Label row="1" *ngIf="selectedTab==0" text="Home" class="navText"></Label>
         </GridLayout>
 
         <GridLayout [class]="selectedTab==1?'nav active':'nav'" (tap)="onCartTap()"
             rows="*,auto" cols="auto" col="1" row="0" width="25%">
             <Image [class]="selectedTab==1?'navIcon ':'navIcon'" row="0"
-                [src]="selectedTab==1?'~/images/navcartm.png':'~/images/navcart.png'"></Image>
+                [src]="selectedTab==1?'~/app/images/navcartm.png':'~/app/images/navcart.png'"></Image>
             <Label row="1" *ngIf="selectedTab == 1" text="Cart" class="navText"></Label>
         </GridLayout>
 
         <GridLayout [class]="selectedTab==2?'nav active':'nav'" (tap)="onHistoryTap()"
             rows="*,auto" cols="auto" col="2" row="0" width="25%">
             <Image [class]="selectedTab==2?'navIcon active':'navIcon'" row="0"
-                [src]="selectedTab==2?'~/images/navordersm.png':'~/images/navorders.png'"></Image>
+                [src]="selectedTab==2?'~/app/images/navordersm.png':'~/app/images/navorders.png'"></Image>
             <Label row="1" *ngIf="selectedTab == 2" text="History" class="navText"></Label>
         </GridLayout>
 
@@ -155,7 +155,7 @@
             rows="*,auto" cols="auto" col="3" row="0" width="25%">
 
             <Image [class]="selectedTab==3?'navIcon active':'navIcon'" row="0"
-                [src]="selectedTab==3?'~/images/sign-out.png':'~/images/sign-out.png'"></Image>
+                [src]="selectedTab==3?'~/app/images/sign-out.png':'~/app/images/sign-out.png'"></Image>
             <Label row="1" *ngIf="selectedTab == 3" text="Sair" class="navText"></Label>
         </GridLayout>
     </GridLayout>

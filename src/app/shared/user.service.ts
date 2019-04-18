@@ -4,7 +4,6 @@ import { map, catchError } from 'rxjs/operators';
 // Feel free to swap in your own service / APIs / etc here for your own apps.
 
 import { Injectable } from "@angular/core";
-import { Kinvey } from "kinvey-nativescript-sdk";
 import { User } from "./user.model";
 import { HttpClient } from "@angular/common/http";
 import { ResponseApi } from './models/Response-api.model';
@@ -48,11 +47,11 @@ export class UserService {
     }
 
     resetPassword(email) {
-        return Kinvey.User.resetPassword(email)
-            .catch(this.handleErrors);
+        // return Kinvey.User.resetPassword(email)
+        //     .catch(this.handleErrors);
     }
 
-    handleErrors(error: Kinvey.BaseError) {
+    handleErrors(error) {
         console.error(error.message);
         return Promise.reject(error.message);
     }

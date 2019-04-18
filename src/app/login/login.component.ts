@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
                 }
             },
             error => {
-            this.error = error;
-            alert(error.error.message);
+                this.error = error;
+                alert(error.error.message);
             });
     }
 
@@ -118,12 +118,12 @@ export class LoginComponent implements OnInit {
             cancelButtonText: "Cancel"
         }).then((data) => {
             if (data.result) {
-                this.userService.resetPassword(data.text.trim())
-                    .then(() => {
-                        this.alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
-                    }).catch(() => {
-                        this.alert("Unfortunately, an error occurred resetting your password.");
-                    });
+                // this.userService.resetPassword(data.text.trim())
+                //     .then(() => {
+                //         this.alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
+                //     }).catch(() => {
+                //         this.alert("Unfortunately, an error occurred resetting your password.");
+                //     });
             }
         });
     }
