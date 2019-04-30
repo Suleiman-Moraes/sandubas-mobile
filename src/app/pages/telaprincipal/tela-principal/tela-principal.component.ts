@@ -35,7 +35,7 @@ export class TelaPrincipalComponent implements OnInit {
         this.carregarMercadorias();
     }
 
-    showItem(item: Mercadoria) {
+    showItem(item: Mercadoria) { 
         alert(item.descricao);
         this.routerExtensions.navigate(["detalhe", {
             animated: true,
