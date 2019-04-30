@@ -37,7 +37,7 @@ export class TelaPrincipalComponent implements OnInit {
 
     showItem(item: Mercadoria) { 
         alert(item.descricao);
-        this.routerExtensions.navigate(["detalhe", {
+        this.routerExtensions.navigate(["detalhe/" + item.id, {
             animated: true,
             transition: {
                 name: "slideTop",

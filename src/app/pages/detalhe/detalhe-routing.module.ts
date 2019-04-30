@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 
 const routes: Routes = [
-  { path: "", component: DetalhesComponent }
+  { path: ":id", component: DetalhesComponent }
 ];
 
 @NgModule({
