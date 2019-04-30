@@ -45,7 +45,7 @@
             <ng-template let-item="item">
                 <StackLayout class="main">
                     <StackLayout class="content">
-                        <Image stretch="aspectFill" class="card-img" (tap)="showItem(item.id)"
+                        <Image stretch="aspectFill" class="card-img" (tap)="showItem(item)"
                             src="~/app/images/lanche.jpg"></Image>
                         <GridLayout width="100%" columns="auto,*" rows="auto,auto"
                             class="" verticalAlignment="center">
@@ -71,25 +71,25 @@
                             <GridLayout col="0" rows="auto" columns="auto,auto"
                                 (tap)="toggleLike(item)">
                                 <Label col="0" row="0" #like 
-                                    text="what"></Label>
-                                <Label col="1" row="0" class="layout" text="item.likes"></Label>
+                                    text=""></Label>
+                                <Label col="1" row="0" class="layout" text=""></Label>
                             </GridLayout>
                             <StackLayout col="1" orientation="horizontal"
                                 marginLeft="15">
                                 <Label ref="" class="like-icon layout fa"
-                                    text="&#xf0e5;"></Label>
-                                <Label class="layout" text="item.comments"></Label>
+                                    text=""></Label>
+                                <Label class="layout" text=""></Label>
                             </StackLayout>
                             <GridLayout col="2" rows="auto" columns="auto,auto"
                                 (tap)="toggleHeart(item)" marginRight="15">
                                 <Label col="0" row="0" #favorite 
-                                    text="item.isFavorite ?"></Label>
-                                <Label col="1" row="0" class="layout" text="Favorite"></Label>
+                                    text=""></Label>
+                                <!-- <Label col="1" row="0" class="layout" text="Favorite"></Label> -->
                             </GridLayout>
                             <StackLayout col="3" orientation="horizontal">
                                 <Label ref="" class="like-icon layout fa"
-                                    text="&#xf045;"></Label>
-                                <Label class="layout" text="Share"></Label>
+                                    text=""></Label>
+                                <!-- <Label class="layout" text="Share"></Label> -->
                             </StackLayout>
 
                         </GridLayout>
