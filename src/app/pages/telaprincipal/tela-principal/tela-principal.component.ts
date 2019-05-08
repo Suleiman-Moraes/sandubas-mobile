@@ -48,6 +48,7 @@ export class TelaPrincipalComponent implements OnInit {
     }
 
     onBellTap() {
+
     }
 
     onSearchTap() {
@@ -72,6 +73,15 @@ export class TelaPrincipalComponent implements OnInit {
 
     onCartTap() {
         this.selectedTab = 1;
+        alert('oi');
+        this.routerExtensions.navigate(["sacola", {
+            animated: true, 
+            transition: {
+                name: "slideTop",
+                duration: 380,
+                curve: "easeIn"
+            }
+        }]);
     }
 
     onHistoryTap() {
