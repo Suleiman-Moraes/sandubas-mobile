@@ -39,7 +39,7 @@ export class TelaPrincipalComponent implements OnInit {
         alert(item.descricao);
         this.routerExtensions.navigate(["detalhe", {
             animated: true,
-            transition: {
+            transition: { 
                 name: "slideTop",
                 duration: 380,
                 curve: "easeIn"
