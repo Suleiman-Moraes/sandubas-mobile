@@ -70,7 +70,7 @@
                         <GridLayout columns="auto,*,auto,auto" rows="auto">
                             <GridLayout col="0" rows="auto" columns="auto,auto"
                                 (tap)="toggleLike(item)">
-                                <Label col="0" row="0" #like 
+                                <Label col="0" row="0" #like
                                     text=""></Label>
                                 <Label col="1" row="0" class="layout" text=""></Label>
                             </GridLayout>
@@ -82,7 +82,7 @@
                             </StackLayout>
                             <GridLayout col="2" rows="auto" columns="auto,auto"
                                 (tap)="toggleHeart(item)" marginRight="15">
-                                <Label col="0" row="0" #favorite 
+                                <Label col="0" row="0" #favorite
                                     text=""></Label>
                                 <!-- <Label col="1" row="0" class="layout" text="Favorite"></Label> -->
                             </GridLayout>
@@ -105,7 +105,7 @@
     <GridLayout *ngIf="selectedTabview == 1" row="2" width="100%"
         backgroundColor="white">
         <ListView #categoryListview [items]="categories" separatorColor="transparent">
-            <ng-template let-item="item">                
+            <ng-template let-item="item">
                 <GridLayout rows="*" columns="*">
                     <Image height="150" width="100%" marginBottom="10"
                         stretch="aspectFill" [src]="item.cover"></Image>

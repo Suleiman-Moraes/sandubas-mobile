@@ -26,7 +26,7 @@
                 <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #confirmPassword class="input" [isEnabled]="!processing"
                         hint="Confirme a Senha" secure="true" [(ngModel)]="user.confirmPassword"
-                        [returnKeyType]="isLoggingIn ? 'done' : 'next'" 
+                        [returnKeyType]="isLoggingIn ? 'done' : 'next'"
                         (returnPress)="focusNome()"></TextField>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
@@ -41,7 +41,7 @@
                 <!-- E-mail -->
                 <StackLayout row="4" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #email class="input" [isEnabled]="!processing"
-                        keyboardType="email" 
+                        keyboardType="email"
                         hint="E-mail" secure="false" [(ngModel)]="user.email"
                         [returnKeyType]="isLoggingIn ? 'done' : 'next'"
                         (returnPress)="focusCpf()"></TextField>
@@ -73,4 +73,6 @@
             <Span [text]="isLoggingIn ? 'Cadastrar-se' : ''" class="bold"></Span>
         </FormattedString>
     </Label>
+
+
 </FlexboxLayout>
