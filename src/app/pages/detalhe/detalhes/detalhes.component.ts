@@ -18,6 +18,8 @@ export class DetalhesComponent implements OnInit {
     itemId: number;
     item: Mercadoria;
     qtd: number = 0;
+    valorUn: number = 0;
+    valorTotal: number = 0;
 
     constructor(
         private pageRoute: PageRoute,
@@ -37,12 +39,19 @@ export class DetalhesComponent implements OnInit {
     ngOnInit(): void{}
 
     plus(): void{
-        this.qtd += 1;
+        if(this.qtd < 20){
+            this.qtd += 1;
+            this.valorTotal += this.valorUn;
+            this.verificarValorTotal();
+        }
+
     }
 
     minus():void{
         if(this.qtd > 0){
             this.qtd -= 1;
+            this.valorTotal -= this.valorUn;
+            this.verificarValorTotal();
         }
     }
 
@@ -61,6 +70,7 @@ export class DetalhesComponent implements OnInit {
             if(response != null){
                 if(response.data != null){
                     this.item = response.data;
+                    this.valorUn = (this.item.precoPago*(this.item.porcentagemVenda/100.0+1));
                 }else{
                     response.erros.forEach(x => alert(x));
                 }
@@ -68,5 +78,10 @@ export class DetalhesComponent implements OnInit {
                 alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
             }
         });
+    }
+    private verificarValorTotal(): void{
+        if(this.valorTotal < 0){
+            this.valorTotal = 0;
+        }
     }
 }
