@@ -28,8 +28,44 @@ export class DetalhesComponent implements OnInit {
       this.itemId = +params["id"];
     });
   }
-
+//////////////////////////////////////////////////////////////////
   ngOnInit() {
   }
+  toggleLike() {
+    this.item.isLike = !this.item.isLike;
+    if (this.item.isLike) {
+        this.item.likes += 1;
+    } else {
+        this.item.likes -= 1;
+    }
+}
+
+toggleHeart(item) {
+    item.isFavorite = !item.isFavorite;
+}
+
+categoryIcon() {
+    switch (this.item.categoryTag) {
+        case "Burger":
+            return String.fromCharCode(0xf0f5); //"fa-cutlery";
+            break;
+        case "Beer":
+            return String.fromCharCode(0xf0fc); //"fa-beer";
+            break;
+        case "Pancake":
+            return String.fromCharCode(0xf0f4); //"fa-coffee";
+            break;
+        case "Cake":
+            return String.fromCharCode(0xf1fd); //"fa-birthday-cake";
+            break;
+        default:
+            return String.fromCharCode(0xf06d); //"fa-fire";
+            break;
+    }
+}
+
+onCloseTap(): void {
+    this.routerExtensions.back();
+}
 
 }
