@@ -5,3 +5,5 @@ var SANDU: string = 'https://persistenciasandubas.herokuapp.com';
 export const SANDU_USER_LOGIN: string = `${SANDU}/user/login`;
 
 export const SANDU_MERCADORIA: string = `${SANDU}/mercadoria`;
+
+export const SANDU_DETALHEPEDIDO: string = `${SANDU}/detalhepedido`;
