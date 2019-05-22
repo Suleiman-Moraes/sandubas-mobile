@@ -7,6 +7,9 @@ import { MercadoriaService } from '~/app/shared/mercadoria.service';
 import { ResponseApi } from '~/app/shared/models/Response-api.model';
 import { DetalhePedido } from '~/app/shared/models/detalhe-pedido.model';
 import { DetalhePedidoService } from '~/app/shared/detalhe-pedido.service';
+import { Pedido } from '~/app/shared/models/pedido.model';
+import { PedidoService } from '~/app/shared/pedido.service';
+import { SharedService } from '~/app/shared/shared.service';
 
 
 @Component({
@@ -20,6 +23,7 @@ export class DetalhesComponent implements OnInit {
     itemId: number;
     item: Mercadoria;
     detalhePedido: DetalhePedido;
+    pedido: Pedido;
     qtd: number = 0;
     valorUn: number = 0;
     valorTotal: number = 0;
@@ -29,7 +33,9 @@ export class DetalhesComponent implements OnInit {
         private routerExtensions: RouterExtensions,
         private page: Page,
         private mercadoriaService: MercadoriaService,
-        private detalhePedidoService: DetalhePedidoService
+        private detalhePedidoService: DetalhePedidoService,
+        private pedidoService: PedidoService,
+        private sharedService: SharedService
     ){
         this.page.actionBarHidden = true;
         this.pageRoute.activatedRoute.pipe(
@@ -59,13 +65,7 @@ export class DetalhesComponent implements OnInit {
         }
     }
     adicionar():void{
-        this.detalhePedido = new DetalhePedido();
-        this.detalhePedido.mercadoria = this.item;
-        this.detalhePedido.quantidade = this.qtd;
-        this.detalhePedido.total = this.valorTotal;
-        this.detalhePedido.precoUnitario = this.valorUn;
-        this.adicionar();
-
+        this.buscarPedido();
     }
 
     toggleLike(): void{}
@@ -94,12 +94,13 @@ export class DetalhesComponent implements OnInit {
     }
     private adicionarPedido():void{
 
-        this.detalhePedidoService.post(this.detalhePedido).subscribe((response: ResponseApi)=>{
+        this.pedidoService.adicionar(this.pedido).subscribe((response: ResponseApi)=>{
             if(response != null){
                 if(response.data != null){
                     alert('Pedido adicionado com sucesso!!!');
                     this.onCloseTap();
                 }else{
+                    alert("ERRO ao adicionar pedido");
                     response.erros.forEach(x => alert(x));
                 }
             }else{
@@ -111,5 +112,35 @@ export class DetalhesComponent implements OnInit {
         if(this.valorTotal < 0){
             this.valorTotal = 0;
         }
+    }
+    private adicionarDetalhePedido() : void{
+
+        this.detalhePedido = new DetalhePedido();
+        this.detalhePedido.mercadoria = this.item;
+        this.detalhePedido.quantidade = this.qtd;
+        this.detalhePedido.total = this.valorTotal;
+        this.detalhePedido.precoUnitario = this.valorUn;
+        if(this.pedido.detalhesPedidos == null || this.pedido.detalhesPedidos.length <= 0){
+            this.pedido.detalhesPedidos = new Array();
+        }
+        this.pedido.detalhesPedidos.push(this.detalhePedido);
+        alert('teste oi 127');
+        this.adicionarPedido();
+
+
+    }
+    private buscarPedido() : void {
+        this.pedidoService.getPedido(this.sharedService.user.id).subscribe((response: ResponseApi)=>{
+            if(response != null){
+                if(response.data != null){
+                    this.pedido = response.data;
+                    this.adicionarDetalhePedido();
+                }else{
+                    response.erros.forEach(x => alert(x));
+                }
+            }else{
+                alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
+            }
+        });
     }
 }
