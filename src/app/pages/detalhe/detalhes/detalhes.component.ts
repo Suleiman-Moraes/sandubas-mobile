@@ -92,20 +92,24 @@ export class DetalhesComponent implements OnInit {
             }
         });
     }
-    private adicionarPedido():void{
-
-        this.pedidoService.adicionar(this.pedido).subscribe((response: ResponseApi)=>{
-            if(response != null){
-                if(response.data != null){
-                    alert('Pedido adicionado com sucesso!!!');
-                    this.onCloseTap();
+    private adicionarPedido(): Promise<void>{
+        return new Promise((resolve, reject) => {
+            this.pedidoService.adicionar(this.pedido).subscribe((response: ResponseApi)=>{
+                if(response != null){
+                    if(response.data != null){
+                        alert('Pedido adicionado com sucesso!!!');
+                        resolve();
+                        this.onCloseTap();
+                    }else{
+                        alert("ERRO ao adicionar pedido");
+                        response.erros.forEach(x => alert(x));
+                        reject();
+                    }
                 }else{
-                    alert("ERRO ao adicionar pedido");
-                    response.erros.forEach(x => alert(x));
+                    alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
+                    reject();
                 }
-            }else{
-                alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
-            }
+            });
         });
     }
     private verificarValorTotal(): void{
@@ -113,22 +117,21 @@ export class DetalhesComponent implements OnInit {
             this.valorTotal = 0;
         }
     }
-    private adicionarDetalhePedido() : void{
-
-        this.detalhePedido = new DetalhePedido();
-        this.detalhePedido.mercadoria = this.item;
-        this.detalhePedido.quantidade = this.qtd;
-        this.detalhePedido.total = this.valorTotal;
-        this.detalhePedido.precoUnitario = this.valorUn;
-        if(this.pedido.detalhesPedidos == null || this.pedido.detalhesPedidos.length <= 0){
-            this.pedido.detalhesPedidos = new Array();
-        }
-        this.pedido.detalhesPedidos.push(this.detalhePedido);
-        alert('teste oi 127');
-        this.adicionarPedido();
-
-
+    private adicionarDetalhePedido(): Promise<void>{
+        return new Promise((resolve, reject) => {
+            this.detalhePedido = new DetalhePedido();
+            this.detalhePedido.mercadoria = this.item;
+            this.detalhePedido.quantidade = this.qtd;
+            this.detalhePedido.total = this.valorTotal;
+            this.detalhePedido.precoUnitario = this.valorUn;
+            if(this.pedido.detalhesPedidos == null || this.pedido.detalhesPedidos.length <= 0){
+                this.pedido.detalhesPedidos = new Array();
+            }
+            this.pedido.detalhesPedidos.push(this.detalhePedido);
+            resolve();
+        });
     }
+
     private buscarPedido() : void {
         this.pedidoService.getPedido(this.sharedService.user.id).subscribe((response: ResponseApi)=>{
             if(response != null){
