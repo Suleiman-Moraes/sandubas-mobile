@@ -35,9 +35,9 @@ export class TelaPrincipalComponent implements OnInit {
         this.carregarMercadorias();
     }
 
-    showItem(item: Mercadoria) { 
+    showItem(item: Mercadoria) {
         this.routerExtensions.navigate(["detalhe/" + item.id, {
-            animated: true, 
+            animated: true,
             transition: {
                 name: "slideTop",
                 duration: 380,
@@ -72,9 +72,8 @@ export class TelaPrincipalComponent implements OnInit {
 
     onCartTap() {
         this.selectedTab = 1;
-        alert('oi');
         this.routerExtensions.navigate(["sacola", {
-            animated: true, 
+            animated: true,
             transition: {
                 name: "slideTop",
                 duration: 380,

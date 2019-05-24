@@ -9,7 +9,7 @@ export class Pedido{
         public endereco?: string,
         public latitude?: number,
         public longitude?: number,
-        public detalhesPedidos?: DetalhePedido[],
+        public detalhePedidos?: DetalhePedido[],
         public data?: Date,
         public status?: string,
         public user?: User
