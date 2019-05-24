@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DetalhePedido } from './models/detalhe-pedido.model';
 import { ResponseApi } from './models/Response-api.model';
 import { Observable, throwError } from 'rxjs';
-import { SANDU_DETALHEPEDIDO } from './sandubas.api';
+import { SANDU_DETALHEPEDIDO, SANDU_DETALHEPEDIDO_ADICIONAR } from './sandubas.api';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -12,20 +12,30 @@ import { map, catchError } from 'rxjs/operators';
 export class DetalhePedidoService {
 
   constructor(
-      private http:HttpClient
+    private http: HttpClient
   ) { }
-  post(detalhe:DetalhePedido):Observable<ResponseApi>{
-    return this.http.post(`${SANDU_DETALHEPEDIDO}`,detalhe).pipe(
-        map(this.fromJsonResponseApi.bind(this)),
-        catchError(this.handleError)
+
+  post(detalhe: DetalhePedido): Observable<ResponseApi> {
+    return this.http.post(`${SANDU_DETALHEPEDIDO}`, detalhe).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
     );
   }
+
+  adicionar(detalhe: DetalhePedido, userId: number): Observable<ResponseApi> {
+    alert('adicionar teste');
+    return this.http.put(`${SANDU_DETALHEPEDIDO_ADICIONAR}/${userId}`, detalhe).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: any): Observable<any> {
     console.log("ERRO NA REQUISIÇÃO => ", error);
     return throwError(error);
   }
 
-  private fromJsonResponseApi(jsonData: any): ResponseApi{
+  private fromJsonResponseApi(jsonData: any): ResponseApi {
     return Object.assign(new ResponseApi(), jsonData);
   }
 }
