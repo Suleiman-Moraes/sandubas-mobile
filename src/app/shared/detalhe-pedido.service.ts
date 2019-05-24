@@ -23,7 +23,6 @@ export class DetalhePedidoService {
   }
 
   adicionar(detalhe: DetalhePedido, userId: number): Observable<ResponseApi> {
-    alert('adicionar teste');
     return this.http.put(`${SANDU_DETALHEPEDIDO_ADICIONAR}/${userId}`, detalhe).pipe(
       map(this.fromJsonResponseApi.bind(this)),
       catchError(this.handleError)

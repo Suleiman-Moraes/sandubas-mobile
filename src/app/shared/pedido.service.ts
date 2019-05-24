@@ -30,16 +30,12 @@ export class PedidoService {
   }
 
   adicionar(pedido: Pedido): Observable<ResponseApi> {
-    if (pedido.id == null) {
-      return null;
-    }
-    alert('adicionar teste');
     return this.http.put(`${SANDU_PEDIDO_ADICIONAR}`, pedido).pipe(
       map(this.fromJsonResponseApi.bind(this)),
       catchError(this.handleError)
     );
   }
-  
+
   private handleError(error: any): Observable<any> {
     console.log("ERRO NA REQUISIÇÃO => ", error);
     return throwError(error);
