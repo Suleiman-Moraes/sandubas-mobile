@@ -11,9 +11,9 @@
     <Label class="header" fontSize="20" horizontalAlignment="center" [text]="item.descricao + ' - ' + item.valorMedida" ></Label>
 
     <GridLayout class="anim-cover" rows="auto" columns="*,auto,*">
-        <Button text=" + " col="0" row="0" (tap)="plus()" class="btn btn-primary"></Button>
+        <Button text=" + " col="2" row="0" (tap)="plus()" class="btn btn-primary"></Button>
         <Button col="1" row="0" [text]="qtd" isEnabled="false" class="btn btn-primary" backgroundColor="red"></Button>
-        <Button text=" - " col="2" row="0" (tap)="minus()" class="btn btn-primary" ></Button>
+        <Button text=" - " col="0" row="0" (tap)="minus()" class="btn btn-primary" ></Button>
     </GridLayout>
 
     <GridLayout class="anim-cover" rows="auto,auto,auto,auto" columns="*,*">
@@ -32,5 +32,7 @@
 
     <Button text="Adicionar" (tap)="adicionar()" [isEnabled]="qtd > 0" class="btn btn-primary" backgroundColor="green"></Button>
     <Button text="Voltar" hight="60" verticalAlignment="bottom" (tap)="onCloseTap()" class="btn btn-primary"></Button>
+    <Button text="Susu Baitola" verticalAlignment="bottom" class="btn btn-primary"
+    backgroundColor="green" isEnabled="false"></Button>
 
 </StackLayout>
