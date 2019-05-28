@@ -11,37 +11,41 @@ import { Pedido } from './models/pedido.model';
 })
 export class PedidoService {
 
-    constructor(
-        private http:HttpClient
-    ) { }
-    post(pedido:Pedido):Observable<ResponseApi>{
-      return this.http.post(`${SANDU_PEDIDO}`,pedido).pipe(
-          map(this.fromJsonResponseApi.bind(this)),
-          catchError(this.handleError)
-      );
-    }
-    getPedido(userId:number):Observable<ResponseApi>{
-        return this.http.get(`${SANDU_PEDIDO_GETPEDIDO}/${userId}`).pipe(
-            map(this.fromJsonResponseApi.bind(this)),
-            catchError(this.handleError)
-            );
-        }
-    adicionar(pedido:Pedido):Observable<ResponseApi>{
-        if(pedido.id == null ){
-            return null;
-        }
-        alert('adicionar teste');
-        return this.http.put(`${SANDU_PEDIDO_ADICIONAR}`,pedido).pipe(
-        map(this.fromJsonResponseApi.bind(this)),
-        catchError(this.handleError)
-        );
-    }
-    private handleError(error: any): Observable<any> {
-      console.log("ERRO NA REQUISIÇÃO => ", error);
-      return throwError(error);
-    }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-    private fromJsonResponseApi(jsonData: any): ResponseApi{
-      return Object.assign(new ResponseApi(), jsonData);
+  post(pedido: Pedido): Observable<ResponseApi> {
+    return this.http.post(`${SANDU_PEDIDO}`, pedido).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
+    );
+  }
+
+  getPedido(userId: number): Observable<ResponseApi> {
+    return this.http.get(`${SANDU_PEDIDO_GETPEDIDO}/${userId}`).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
+    );
+  }
+
+  adicionar(pedido: Pedido): Observable<ResponseApi> {
+    if (pedido.id == null) {
+      return null;
     }
+    alert('adicionar teste');
+    return this.http.put(`${SANDU_PEDIDO_ADICIONAR}`, pedido).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
+    );
+  }
+  
+  private handleError(error: any): Observable<any> {
+    console.log("ERRO NA REQUISIÇÃO => ", error);
+    return throwError(error);
+  }
+
+  private fromJsonResponseApi(jsonData: any): ResponseApi {
+    return Object.assign(new ResponseApi(), jsonData);
+  }
 }

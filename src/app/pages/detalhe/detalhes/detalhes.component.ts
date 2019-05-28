@@ -36,7 +36,7 @@ export class DetalhesComponent implements OnInit {
         private detalhePedidoService: DetalhePedidoService,
         private pedidoService: PedidoService,
         private sharedService: SharedService
-    ){
+    ) {
         this.page.actionBarHidden = true;
         this.pageRoute.activatedRoute.pipe(
             switchMap(activatedRoute => activatedRoute.params)
@@ -46,10 +46,10 @@ export class DetalhesComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void{}
+    ngOnInit(): void { }
 
-    plus(): void{
-        if(this.qtd < 20){
+    plus(): void {
+        if (this.qtd < 20) {
             this.qtd += 1;
             this.valorTotal += this.valorUn;
             this.verificarValorTotal();
@@ -57,88 +57,88 @@ export class DetalhesComponent implements OnInit {
 
     }
 
-    minus():void{
-        if(this.qtd > 0){
+    minus(): void {
+        if (this.qtd > 0) {
             this.qtd -= 1;
             this.valorTotal -= this.valorUn;
             this.verificarValorTotal();
         }
     }
-    adicionar():void{
+    adicionar(): void {
         this.buscarPedido();
     }
 
-    toggleLike(): void{}
+    toggleLike(): void { }
 
-    toggleHeart(item): void{}
+    toggleHeart(item): void { }
 
-    categoryIcon(): void{}
+    categoryIcon(): void { }
 
-    onCloseTap(): void{
+    onCloseTap(): void {
         this.routerExtensions.back();
     }
 
-    private loadReasource(id:number){
-        this.mercadoriaService.findById(id).subscribe((response: ResponseApi)=>{
-            if(response != null){
-                if(response.data != null){
+    private loadReasource(id: number) {
+        this.mercadoriaService.findById(id).subscribe((response: ResponseApi) => {
+            if (response != null) {
+                if (response.data != null) {
                     this.item = response.data;
-                    this.valorUn = (this.item.precoPago*(this.item.porcentagemVenda/100.0+1));
-                }else{
+                    this.valorUn = (this.item.precoPago * (this.item.porcentagemVenda / 100.0 + 1));
+                } else {
                     response.erros.forEach(x => alert(x));
                 }
-            }else{
+            } else {
                 alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
             }
         });
     }
-    private adicionarPedido():void{
-
-        this.pedidoService.adicionar(this.pedido).subscribe((response: ResponseApi)=>{
-            if(response != null){
-                if(response.data != null){
-                    alert('Pedido adicionado com sucesso!!!');
-                    this.onCloseTap();
-                }else{
-                    alert("ERRO ao adicionar pedido");
-                    response.erros.forEach(x => alert(x));
+    private adicionarPedido(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.detalhePedidoService.adicionar(this.detalhePedido, this.sharedService.user.id).subscribe((response: ResponseApi) => {
+                if (response != null) {
+                    if (response.data != null) {
+                        alert('Pedido adicionado com sucesso!!!');
+                        resolve();
+                        this.onCloseTap();
+                    } else {
+                        alert("ERRO ao adicionar pedido");
+                        response.erros.forEach(x => alert(x));
+                        reject();
+                    }
+                } else {
+                    alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
+                    reject();
                 }
-            }else{
-                alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
-            }
+            });
         });
     }
-    private verificarValorTotal(): void{
-        if(this.valorTotal < 0){
+    private verificarValorTotal(): void {
+        if (this.valorTotal < 0) {
             this.valorTotal = 0;
         }
     }
-    private adicionarDetalhePedido() : void{
-
-        this.detalhePedido = new DetalhePedido();
-        this.detalhePedido.mercadoria = this.item;
-        this.detalhePedido.quantidade = this.qtd;
-        this.detalhePedido.total = this.valorTotal;
-        this.detalhePedido.precoUnitario = this.valorUn;
-        if(this.pedido.detalhesPedidos == null || this.pedido.detalhesPedidos.length <= 0){
-            this.pedido.detalhesPedidos = new Array();
-        }
-        this.pedido.detalhesPedidos.push(this.detalhePedido);
-        alert('teste oi 127');
-        this.adicionarPedido();
-
-
+    private adicionarDetalhePedido(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.detalhePedido = new DetalhePedido();
+            this.detalhePedido.mercadoria = this.item;
+            this.detalhePedido.quantidade = this.qtd;
+            this.detalhePedido.total = this.valorTotal;
+            this.detalhePedido.precoUnitario = this.valorUn;
+            this.adicionarPedido();
+            resolve();
+        });
     }
-    private buscarPedido() : void {
-        this.pedidoService.getPedido(this.sharedService.user.id).subscribe((response: ResponseApi)=>{
-            if(response != null){
-                if(response.data != null){
+
+    private buscarPedido(): void {
+        this.pedidoService.getPedido(this.sharedService.user.id).subscribe((response: ResponseApi) => {
+            if (response != null) {
+                if (response.data != null) {
                     this.pedido = response.data;
                     this.adicionarDetalhePedido();
-                }else{
+                } else {
                     response.erros.forEach(x => alert(x));
                 }
-            }else{
+            } else {
                 alert('Ocorreu um erro inesperado, tente novamente mais tarde!!!');
             }
         });
