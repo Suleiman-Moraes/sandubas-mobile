@@ -34,7 +34,6 @@ export class SacolaComponent implements OnInit {
 
     enableLocationServices(): void {
         geoLocation.isEnabled().then(enabled => {
-            alert('oi');
             if (!enabled) {
                 geoLocation.enableLocationRequest().then(() => this.showLocation());
             } else {
@@ -46,8 +45,9 @@ export class SacolaComponent implements OnInit {
     private showLocation(): void {
         geoLocation.watchLocation(location => {
             this.currentGeoLocation = location;
-            alert(this.currentGeoLocation.latitude);
-            alert(this.currentGeoLocation.longitude);
+            alert('Localização Capturada com sucesso!');
+            // alert(this.currentGeoLocation.latitude);
+            // alert(this.currentGeoLocation.longitude);
         }, error => {
             alert(error);
         }, {

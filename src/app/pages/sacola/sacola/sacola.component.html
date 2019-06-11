@@ -1,4 +1,4 @@
-<GridLayout rows="*, auto, auto, auto" width="100%" backgroundColor="white">
+<GridLayout rows="*, auto, auto, auto, auto, auto" width="100%" backgroundColor="white">
     <ListView #listview [items]="pedido.detalhePedidos" separatorColor="transparent" col="0" row="0" >
         <ng-template let-item="item">
             <StackLayout class="main">
@@ -28,7 +28,8 @@
     <Label col="0" row="2" text="Tempo médio de 30 a 60 minutos" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
 
     <StackLayout col="0" row="3">
-        <Button text="Show location" (tap)="enableLocationServices()" *ngIf="!currentGeoLocation"></Button>
+        <Button text="Capturar Localização" (tap)="enableLocationServices()" class="btn btn-primary" *ngIf="!currentGeoLocation"></Button>
+        <Button text="Localização Capturada" (tap)="enableLocationServices()" isEnabled="false" class="btn btn-primary" *ngIf="currentGeoLocation"></Button>
         <!-- <StackLayout *ngIf="currentGeoLocation">
             <Label text="Latitude: {{ currentGeoLocation.latitude }}"></Label>
             <Label text="Longitude: {{ currentGeoLocation.longitude }}"></Label>
@@ -36,4 +37,12 @@
             <Label text="Direction: {{ currentGeoLocation.direction }}"></Label>
         </StackLayout> -->
     </StackLayout>
+
+    <Label col="0" row="4" text="Forma de Pagamento" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
+
+    <GridLayout class="anim-cover" col="0" row="5" columns="auto, auto" rows="auto">
+        <Button text="Capturar Localização" col="0" row="0" (tap)="enableLocationServices()" class="btn btn-primary"></Button>
+        <Button text="Localização Capturada" col="1" row="0" (tap)="enableLocationServices()" isEnabled="false" class="btn btn-primary"></Button>
+    </GridLayout>
+
 </GridLayout>
