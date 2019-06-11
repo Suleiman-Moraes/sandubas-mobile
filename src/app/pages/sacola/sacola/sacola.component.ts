@@ -37,6 +37,10 @@ export class SacolaComponent implements OnInit {
         this.isCartao = !this.isCartao;
     }
 
+    comprar(): void{
+        this.isCartao = !this.isCartao;
+    }
+
     enableLocationServices(): void {
         geoLocation.isEnabled().then(enabled => {
             if (!enabled) {
