@@ -34,6 +34,7 @@ export class SacolaComponent implements OnInit {
 
     enableLocationServices(): void {
         geoLocation.isEnabled().then(enabled => {
+            alert('oi');
             if (!enabled) {
                 geoLocation.enableLocationRequest().then(() => this.showLocation());
             } else {
