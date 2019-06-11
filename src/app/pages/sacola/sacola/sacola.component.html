@@ -40,9 +40,9 @@
 
     <Label col="0" row="4" text="Forma de Pagamento" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
 
-    <GridLayout class="anim-cover" col="0" row="5" columns="auto, auto" rows="auto">
-        <Button text="Capturar Localização" col="0" row="0" (tap)="enableLocationServices()" class="btn btn-primary"></Button>
-        <Button text="Localização Capturada" col="1" row="0" (tap)="enableLocationServices()" isEnabled="false" class="btn btn-primary"></Button>
+    <GridLayout class="anim-cover" col="0" row="5" columns="*, *" rows="auto">
+        <Button text="Dinheiro" col="0" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="left" [isEnabled]="!isCartao" class="btn btn-primary"></Button>
+        <Button text="Cartão" col="1" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="right" [isEnabled]="isCartao" class="btn btn-primary"></Button>
     </GridLayout>
 
 </GridLayout>

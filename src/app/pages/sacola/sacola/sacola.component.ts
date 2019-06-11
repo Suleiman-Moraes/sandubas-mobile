@@ -16,6 +16,7 @@ export class SacolaComponent implements OnInit {
 
     pedido: Pedido = new Pedido();
     currentGeoLocation: any;
+    isCartao: boolean = true;
 
     constructor(
         private pedidoService: PedidoService,
@@ -30,6 +31,10 @@ export class SacolaComponent implements OnInit {
 
     retirar(item: DetalhePedido) {
         this.removerDetalhe(item);
+    }
+
+    trocarFormaPagamento(): void{
+        this.isCartao = !this.isCartao;
     }
 
     enableLocationServices(): void {
@@ -51,9 +56,9 @@ export class SacolaComponent implements OnInit {
         }, error => {
             alert(error);
         }, {
-                desiredAccuracy: 3,
-                updateDistance: 10,
-                minimumUpdateTime: 1000 * 1
+                // desiredAccuracy: 3,
+                // updateDistance: 10,
+                // minimumUpdateTime: 1000 * 1
             });
     }
 
