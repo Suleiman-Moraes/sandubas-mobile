@@ -1,4 +1,4 @@
-<GridLayout rows="*, auto, auto, auto, auto, auto" width="100%" backgroundColor="white">
+<GridLayout rows="*, auto, auto, auto, auto, auto, *" width="100%" backgroundColor="white">
     <ListView #listview [items]="pedido.detalhePedidos" separatorColor="transparent" col="0" row="0" >
         <ng-template let-item="item">
             <StackLayout class="main">
@@ -41,8 +41,10 @@
     <Label col="0" row="4" text="Forma de Pagamento" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
 
     <GridLayout class="anim-cover" col="0" row="5" columns="*, *" rows="auto">
-        <Button text="Dinheiro" col="0" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="left" [isEnabled]="!isCartao" class="btn btn-primary"></Button>
-        <Button text="Cartão" col="1" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="right" [isEnabled]="isCartao" class="btn btn-primary"></Button>
+        <Button text="Dinheiro" col="0" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="left" [isEnabled]="isCartao" class="btn btn-primary"></Button>
+        <Button text="Cartão" col="1" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="right" [isEnabled]="!isCartao" class="btn btn-primary"></Button>
     </GridLayout>
+
+    <Button text="Comprar" col="0" row="6" (tap)="comprar()" class="btn btn-primary"></Button>
 
 </GridLayout>
