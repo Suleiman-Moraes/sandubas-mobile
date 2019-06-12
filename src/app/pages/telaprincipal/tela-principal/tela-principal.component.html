@@ -39,7 +39,7 @@
         </GridLayout>
     </GridLayout>
 
-    <GridLayout *ngIf="selectedTabview == 0" row="2" width="100%"
+    <GridLayout *ngIf="selectedTabview == 0 && !isEntrega" row="2" width="100%"
         backgroundColor="white">
         <ListView #listview [items]="mercadorias" separatorColor="transparent">
             <ng-template let-item="item">
@@ -124,7 +124,14 @@
         backgroundColor="white">
     </GridLayout>
 
-
+    <GridLayout *ngIf="selectedTabview == 0 && isEntrega" row="2" width="100%"
+        backgroundColor="white">
+        <StackLayout class="main">
+            <StackLayout class="content">
+                <WebView #myWebView [src]="webViewSrc"></WebView>
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
 
 
     <GridLayout class="navBottom" height="50" width="100%" row="3" rows="auto"

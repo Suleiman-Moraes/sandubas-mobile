@@ -1,1 +1,5 @@
-/* Add mobile styles for the component here.  */
+.icon{
+    font-family: 'IcoMoon-Free';
+    vertical-align: center;
+    margin: 6;
+}

@@ -12,4 +12,5 @@ export const SANDU_DETALHEPEDIDO_ADICIONAR: string = `${SANDU}/detalhepedido/adi
 export const SANDU_PEDIDO: string = `${SANDU}/pedido`;
 export const SANDU_PEDIDO_GETPEDIDO: string = `${SANDU}/pedido/getpedido`;
 export const SANDU_PEDIDO_ADICIONAR: string = `${SANDU}/pedido/adicionar`;
+export const SANDU_PEDIDO_COMPRAR: string = `${SANDU}/pedido/comprar`;
 export const SANDU_PEDIDO_USER: string = `${SANDU}/pedido/user`;

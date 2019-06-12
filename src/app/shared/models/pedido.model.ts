@@ -7,10 +7,11 @@ export class Pedido{
         public valorTotal?: number,
         public tipoPagamento?: string,
         public endereco?: string,
-        public latitude?: number,
-        public longitude?: number,
+        public lat?: number,
+        public log?: number,
         public detalhePedidos?: DetalhePedido[],
         public data?: Date,
+        public dataPedido?: Date,
         public status?: string,
         public user?: User
     ){}

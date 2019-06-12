@@ -45,6 +45,6 @@
         <Button text="Cartão" col="1" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="right" [isEnabled]="!isCartao" class="btn btn-primary"></Button>
     </GridLayout>
 
-    <Button text="Comprar" col="0" row="6" (tap)="comprar()" class="btn btn-primary"></Button>
+    <Button text="Comprar" [isEnabled]="currentGeoLocation != null && pedido.detalhePedidos && pedido.detalhePedidos.length > 0" col="0" row="6" (tap)="comprar()" class="btn btn-primary"></Button>
 
 </GridLayout>

@@ -5,6 +5,7 @@ import { ResponseApi } from '~/app/shared/models/Response-api.model';
 import { Pedido } from '~/app/shared/models/pedido.model';
 import { DetalhePedido } from '~/app/shared/models/detalhe-pedido.model';
 import * as geoLocation from "nativescript-geolocation";
+import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
     selector: 'ns-sacola',
@@ -20,7 +21,8 @@ export class SacolaComponent implements OnInit {
 
     constructor(
         private pedidoService: PedidoService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private routerExtensions: RouterExtensions
     ) {
 
     }
@@ -35,10 +37,23 @@ export class SacolaComponent implements OnInit {
 
     trocarFormaPagamento(): void{
         this.isCartao = !this.isCartao;
+        this.pedido.tipoPagamento = this.isCartao ? 'Cartão' : 'Dinheiro';
     }
 
     comprar(): void{
-        this.isCartao = !this.isCartao;
+        this.pedidoService.comprar(this.pedido).subscribe((response: ResponseApi) => {
+            if (response != null) {
+                if (response.data != null) {
+                    this.pedido = response.data;
+                    alert('Compra efetuada com sucesso!');
+                    this.routerExtensions.back();
+                } else {
+                    response.erros.forEach(x => alert(x));
+                }
+            } else {
+                alert('Ocurreu um erro inesperado tente novamente mais tarde!');
+            }
+        });
     }
 
     enableLocationServices(): void {
@@ -55,14 +70,16 @@ export class SacolaComponent implements OnInit {
         geoLocation.watchLocation(location => {
             this.currentGeoLocation = location;
             alert('Localização Capturada com sucesso!');
+            this.pedido.lat = this.currentGeoLocation.latitude;
+            this.pedido.log = this.currentGeoLocation.longitude;
             // alert(this.currentGeoLocation.latitude);
             // alert(this.currentGeoLocation.longitude);
         }, error => {
             alert(error);
         }, {
-                // desiredAccuracy: 3,
-                // updateDistance: 10,
-                // minimumUpdateTime: 1000 * 1
+                desiredAccuracy: 3,
+                updateDistance: 10,
+                minimumUpdateTime: 10000000000 * 1
             });
     }
 
@@ -71,6 +88,7 @@ export class SacolaComponent implements OnInit {
             if (response != null) {
                 if (response.data != null) {
                     this.pedido = response.data;
+                    this.pedido.tipoPagamento = this.isCartao ? 'Cartão' : 'Dinheiro';
                 } else {
                     response.erros.forEach(x => alert(x));
                 }
@@ -85,6 +103,7 @@ export class SacolaComponent implements OnInit {
             if (response != null) {
                 if (response.data != null) {
                     this.pedido = response.data;
+                    this.pedido.tipoPagamento = this.isCartao ? 'Cartão' : 'Dinheiro';
                     alert(`Pedido "${item.quantidade} x  ${item.mercadoria.descricao} R$ ${item.total}" Removido com Sucesso!`);
                 } else {
                     response.erros.forEach(x => alert(x));
