@@ -21,13 +21,20 @@ export class MercadoriaService {
     );
   }
 
-  findAll(): Observable<ResponseApi>{
-    return this.http.get(`${SANDU_MERCADORIA}`).pipe(
-      map(this.fromJsonResponseApi.bind(this)),
-      catchError(this.handleError)
-    );
-  }
 
+    findAll(): Observable<ResponseApi>{
+      return this.http.get(`${SANDU_MERCADORIA}`).pipe(
+        map(this.fromJsonResponseApi.bind(this)),
+        catchError(this.handleError)
+      );
+    }
+
+    findById(id:number): Observable<ResponseApi>{
+      return this.http.get(`${SANDU_MERCADORIA}/${id}`).pipe(
+        map(this.fromJsonResponseApi.bind(this)),
+        catchError(this.handleError)
+      );
+    }
   private handleError(error: any): Observable<any> {
     console.log("ERRO NA REQUISIÇÃO => ", error);
     return throwError(error);

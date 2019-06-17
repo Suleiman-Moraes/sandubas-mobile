@@ -1,0 +1,50 @@
+<GridLayout rows="*, auto, auto, auto, auto, auto, *" width="100%" backgroundColor="white">
+    <ListView #listview [items]="pedido.detalhePedidos" separatorColor="transparent" col="0" row="0" >
+        <ng-template let-item="item">
+            <StackLayout class="main">
+                <StackLayout class="content">
+                    <GridLayout width="100%" columns="auto, auto, *, auto, auto" rows="auto"
+                        class="" verticalAlignment="center">
+                        <Label row="0" col="0" [text]="item.quantidade + ' x '"
+                            class="item-name" textwrap="true"></Label>
+                        <Label row="0" col="1" [text]="item.mercadoria.descricao"
+                            class="item-name" textwrap="true"></Label>
+                        <Label row="0" col="2" [text]="'R$ ' + item.total"
+                            class="item-name" textwrap="true" horizontalAlignment="right"></Label>
+                        <Label row="0" col="3" text="   "
+                            class="item-name" textwrap="true" horizontalAlignment="right"></Label>
+                        <Label text="  X  " col="4" row="0" (tap)="retirar(item)" class="item-name" backgroundColor="red"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+    <GridLayout row="1" col="0" columns="auto, *, auto" width="100%" backgroundColor="white">
+        <Label col="0" row="0" text="Total" class="item-name" textwrap="true" horizontalAlignment="left"></Label>
+        <Label col="1" row="0" [text]="'R$ ' + pedido.valorTotal" class="item-name" textwrap="true" horizontalAlignment="right"></Label>
+        <Label text="          " col="2" row="0" class="item-name"></Label>
+    </GridLayout>
+
+    <Label col="0" row="2" text="Tempo médio de 30 a 60 minutos" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
+
+    <StackLayout col="0" row="3">
+        <Button text="Capturar Localização" (tap)="enableLocationServices()" class="btn btn-primary" *ngIf="!currentGeoLocation"></Button>
+        <Button text="Localização Capturada" (tap)="enableLocationServices()" isEnabled="false" class="btn btn-primary" *ngIf="currentGeoLocation"></Button>
+        <!-- <StackLayout *ngIf="currentGeoLocation">
+            <Label text="Latitude: {{ currentGeoLocation.latitude }}"></Label>
+            <Label text="Longitude: {{ currentGeoLocation.longitude }}"></Label>
+            <Label text="Altitude: {{ currentGeoLocation.altitude }}"></Label>
+            <Label text="Direction: {{ currentGeoLocation.direction }}"></Label>
+        </StackLayout> -->
+    </StackLayout>
+
+    <Label col="0" row="4" text="Forma de Pagamento" class="item-name" textwrap="true" horizontalAlignment="center"></Label> 
+
+    <GridLayout class="anim-cover" col="0" row="5" columns="*, *" rows="auto">
+        <Button text="Dinheiro" col="0" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="left" [isEnabled]="isCartao" class="btn btn-primary"></Button>
+        <Button text="Cartão" col="1" row="0" (tap)="trocarFormaPagamento()" horizontalAlignment="right" [isEnabled]="!isCartao" class="btn btn-primary"></Button>
+    </GridLayout>
+
+    <Button text="Comprar" [isEnabled]="currentGeoLocation != null && pedido.detalhePedidos && pedido.detalhePedidos.length > 0" col="0" row="6" (tap)="comprar()" class="btn btn-primary"></Button>
+
+</GridLayout>

@@ -1,1 +1,36 @@
-<Button text="detalhes works!" class="btn btn-primary"></Button>
+<StackLayout class="main" verticalAlignment="top">
+
+    <GridLayout class="anim-cover" rows="auto" columns="*">
+        <Image row="0" col="0" marginTop="-40" height="180" stretch="aspectFill"
+            class="card-img" src="~/app/images/food/burger/burger1.jpg"></Image>
+        <Label row="0" col="0" verticalAlignment="top" horizontalAlignment="left"
+            (tap)="onCloseTap()" fontSize="24" text="&#xf060;" class="fa close">
+        </Label>
+    </GridLayout>
+
+    <Label class="header" fontSize="20" horizontalAlignment="center" [text]="item.descricao + ' - ' + item.valorMedida" ></Label>
+
+    <GridLayout class="anim-cover" rows="auto" columns="*,auto,*">
+        <Button text=" + " col="0" row="0" (tap)="plus()" class="btn btn-primary"></Button>
+        <Button col="1" row="0" [text]="qtd" isEnabled="false" class="btn btn-primary" backgroundColor="red"></Button>
+        <Button text=" - " col="2" row="0" (tap)="minus()" class="btn btn-primary" ></Button>
+    </GridLayout>
+
+    <GridLayout class="anim-cover" rows="auto,auto,auto,auto" columns="*,*">
+        <Label class="header m-l-20"  fontSize="20" horizontalAlignment="left" text="Valor unitário:" col="0"   row="0"></Label>
+        <Label class="header m-r-20" fontSize="17" horizontalAlignment="right" [text]="'R$ '+ valorUn" col="1"   row="0"></Label>
+
+        <Label class="header m-l-20"  fontSize="20" horizontalAlignment="left" text="Marca:" col="0"   row="1"></Label>
+        <Label class="header m-r-20" fontSize="17" horizontalAlignment="right" [text]="item.marca" col="1"   row="1"></Label>
+
+        <Label class="header m-l-20"  fontSize="20" horizontalAlignment="left" text="Tipo do produto:" col="0"   row="2"></Label>
+        <Label class="header m-r-20" fontSize="17" horizontalAlignment="right" [text]="item.tipoProduto.nome" col="1"   row="2"></Label>
+
+        <Label class="header m-l-20"  fontSize="20" horizontalAlignment="left" text="Valor total:" col="0"   row="3"></Label>
+        <Label class="header m-r-20" fontSize="17" horizontalAlignment="right" [text]="'R$ '+ valorTotal" col="1"   row="3"></Label>
+    </GridLayout>
+
+    <Button text="Adicionar" (tap)="adicionar()" [isEnabled]="qtd > 0" class="btn btn-primary" backgroundColor="green"></Button>
+    <Button text="Voltar" hight="60" verticalAlignment="bottom" (tap)="onCloseTap()" class="btn btn-primary"></Button>
+
+</StackLayout>

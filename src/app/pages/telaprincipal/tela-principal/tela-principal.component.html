@@ -23,7 +23,7 @@
             <Label [class]="selectedTabview==0?'tabviewText.active':'tabviewText'"
                 row="1" text="POPULAR"></Label>
         </GridLayout>
-        <GridLayout [class]="selectedTabview==1?'tabview.active':'tabview'"
+        <!-- <GridLayout [class]="selectedTabview==1?'tabview.active':'tabview'"
             (tap)="onCategoryTap()" rows="*,auto" columns="auto" col="2" row="0"
             width="34%">
             <Image *ngIf="selectedTabview == 1" row="0" class="navIcon" [src]="selectedTabview==1?'~/app/images/category.png':''"></Image>
@@ -36,10 +36,10 @@
             <Image *ngIf="selectedTabview == 2" row="0" class="navIcon" [src]="selectedTabview==2?'~/app/images/category.png':''"></Image>
             <Label [class]="selectedTabview==2?'tabviewText.active':'tabviewText'"
                 row="1" text="PROMOS"></Label>
-        </GridLayout>
+        </GridLayout> -->
     </GridLayout>
 
-    <GridLayout *ngIf="selectedTabview == 0" row="2" width="100%"
+    <GridLayout *ngIf="selectedTabview == 0 && !isEntrega" row="2" width="100%"
         backgroundColor="white">
         <ListView #listview [items]="mercadorias" separatorColor="transparent">
             <ng-template let-item="item">
@@ -70,7 +70,7 @@
                         <GridLayout columns="auto,*,auto,auto" rows="auto">
                             <GridLayout col="0" rows="auto" columns="auto,auto"
                                 (tap)="toggleLike(item)">
-                                <Label col="0" row="0" #like 
+                                <Label col="0" row="0" #like
                                     text=""></Label>
                                 <Label col="1" row="0" class="layout" text=""></Label>
                             </GridLayout>
@@ -82,7 +82,7 @@
                             </StackLayout>
                             <GridLayout col="2" rows="auto" columns="auto,auto"
                                 (tap)="toggleHeart(item)" marginRight="15">
-                                <Label col="0" row="0" #favorite 
+                                <Label col="0" row="0" #favorite
                                     text=""></Label>
                                 <!-- <Label col="1" row="0" class="layout" text="Favorite"></Label> -->
                             </GridLayout>
@@ -105,7 +105,7 @@
     <GridLayout *ngIf="selectedTabview == 1" row="2" width="100%"
         backgroundColor="white">
         <ListView #categoryListview [items]="categories" separatorColor="transparent">
-            <ng-template let-item="item">                
+            <ng-template let-item="item">
                 <GridLayout rows="*" columns="*">
                     <Image height="150" width="100%" marginBottom="10"
                         stretch="aspectFill" [src]="item.cover"></Image>
@@ -124,7 +124,14 @@
         backgroundColor="white">
     </GridLayout>
 
-
+    <GridLayout *ngIf="selectedTabview == 0 && isEntrega" row="2" width="100%"
+        backgroundColor="white">
+        <StackLayout class="main">
+            <StackLayout class="content">
+                <WebView #myWebView [src]="webViewSrc"></WebView>
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
 
 
     <GridLayout class="navBottom" height="50" width="100%" row="3" rows="auto"
