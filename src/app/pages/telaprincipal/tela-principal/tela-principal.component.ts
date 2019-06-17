@@ -42,6 +42,7 @@ export class TelaPrincipalComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.verficarUserLogado();
         this.user = this.sharedService.user;
+        this.webViewSrc = `https://suleiman-moraes.github.io/sandubas/#/${this.user.id}/rota`;
         this.carregarMercadorias();
     }
 

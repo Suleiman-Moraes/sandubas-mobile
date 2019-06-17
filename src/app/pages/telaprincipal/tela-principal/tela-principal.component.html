@@ -23,7 +23,7 @@
             <Label [class]="selectedTabview==0?'tabviewText.active':'tabviewText'"
                 row="1" text="POPULAR"></Label>
         </GridLayout>
-        <GridLayout [class]="selectedTabview==1?'tabview.active':'tabview'"
+        <!-- <GridLayout [class]="selectedTabview==1?'tabview.active':'tabview'"
             (tap)="onCategoryTap()" rows="*,auto" columns="auto" col="2" row="0"
             width="34%">
             <Image *ngIf="selectedTabview == 1" row="0" class="navIcon" [src]="selectedTabview==1?'~/app/images/category.png':''"></Image>
@@ -36,7 +36,7 @@
             <Image *ngIf="selectedTabview == 2" row="0" class="navIcon" [src]="selectedTabview==2?'~/app/images/category.png':''"></Image>
             <Label [class]="selectedTabview==2?'tabviewText.active':'tabviewText'"
                 row="1" text="PROMOS"></Label>
-        </GridLayout>
+        </GridLayout> -->
     </GridLayout>
 
     <GridLayout *ngIf="selectedTabview == 0 && !isEntrega" row="2" width="100%"
